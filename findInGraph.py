@@ -1,6 +1,6 @@
 def pair_exist(entity, recommendation, algorithm, graph):
-    result = False;
-    for pair in graph:
+    result = False
+    for pair in graph['relations']:
         if ((pair['entity1'] == entity and pair['entity2'] == recommendation) or
                 (pair['entity2'] == entity and pair['entity1'] == recommendation)) and pair['algorithm'] == algorithm:
             result = True
@@ -9,7 +9,7 @@ def pair_exist(entity, recommendation, algorithm, graph):
 
 
 def get_list_item(entity, graph, list_entities):
-    for pair in graph:
+    for pair in graph['relations']:
         if pair['entity2'] == entity:
             list_entities.append(pair['entity1'])
             return get_list_item(pair['entity1'], graph, list_entities)
@@ -17,7 +17,7 @@ def get_list_item(entity, graph, list_entities):
 
 
 def count_deep_item(entity, graph, count):
-    for pair in graph:
+    for pair in graph['relations']:
         if pair['entity2'] == entity:
             count += 1
             if getParent(pair['entity1'], graph) is not False:
@@ -28,7 +28,7 @@ def count_deep_item(entity, graph, count):
 
 
 def getParent(entity, graph):
-    for pair in graph:
+    for pair in graph['relations']:
         if pair['entity2'] == entity:
             return pair['entity1']
     return False
@@ -36,7 +36,7 @@ def getParent(entity, graph):
 
 def check_entity_algorithm(entity, algorithm, graph):
     result = False
-    for pair in graph:
+    for pair in graph['relations']:
         if pair['entity1'] == entity and pair['algorithm'] == algorithm:
             result = True
             break

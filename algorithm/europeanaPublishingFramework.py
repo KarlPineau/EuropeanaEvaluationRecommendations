@@ -36,20 +36,17 @@ def europeana_publishing_framework_algorithm(object, stringify, wrap, row):
     if "provider_aggregation_edm_dataProvider" in object:
         if q != "":
             q += ' OR '
-        q += "DATA_PROVIDER:" + stringify(object["provider_aggregation_edm_dataProvider"],
-                                                                  ' OR ', True, wrap) + ""
-    if "europeana_id" in object:
-        if q != "":
-            q += ' AND '
-        q += "NOT europeana_id:\"" + stringify(object["europeana_id"], ' OR ', True, wrap) + "\""
+        q += "DATA_PROVIDER:" + stringify(object["provider_aggregation_edm_dataProvider"], ' OR ', True, wrap) + ""
 
-    print('https://www.europeana.eu/api/v2/search.json?query=' + urllib.parse.quote_plus(
-            q) + '&' + spec + '&rows=' + str(row) + '&wskey=api2demo')
-    response = urllib.request.urlopen(
-        'https://www.europeana.eu/api/v2/search.json?query=' + urllib.parse.quote_plus(
-            q) + '&' + spec + '&rows=' + str(row) + '&wskey=api2demo')
+    europeana_id_q = ''
+    if "europeana_id" in object:
+        europeana_id_q += "AND NOT europeana_id:\"" + stringify(object["europeana_id"], ' OR ', True, wrap) + "\""
+
+    print('https://www.europeana.eu/api/v2/search.json?query=%28' + urllib.parse.quote_plus(q) + '%29' + urllib.parse.quote_plus(europeana_id_q) + '&' + spec + '&rows=' + str(row) + '&wskey=api2demo')
+    response = urllib.request.urlopen('https://www.europeana.eu/api/v2/search.json?query=%28' + urllib.parse.quote_plus(q) + '%29' + urllib.parse.quote_plus(europeana_id_q) + '&' + spec + '&rows=' + str(row) + '&wskey=api2demo')
     result = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
     #print(result)
     #print(len(result['items']))
 
+    # print(len(result['items']))
     return result['items']

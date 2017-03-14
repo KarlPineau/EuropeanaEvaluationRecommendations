@@ -61,14 +61,17 @@ def computation(entity_computed, list_entities):
         generated_object['edmPreview'] = get_property(reference_item, "europeana_aggregation_edm_preview")
         list_entities[generated_object['europeana_id']] = generated_object
 
+with open('data/relations.json') as json_data:
+    relations = json.load(json_data)
 
-list_entities = {}
+with open('data/entities_tree.json') as json_data:
+    list_entities = json.load(json_data)
 
-for relation in []:
-    firstItem = relation['entity1']
-    secondItem = relation['entity2']
-    computation(firstItem, list_entities)
-    computation(secondItem, list_entities)
+for relation in relations['relations']:
+    if relation['entity1'] not in list_entities:
+        computation(relation['entity1'], list_entities)
+    if relation['entity2'] not in list_entities:
+        computation(relation['entity2'], list_entities)
 
-with open('entities.json', 'w') as outfile:
+with open('data/entities_tree.json', 'w') as outfile:
     json.dump(list_entities, outfile)

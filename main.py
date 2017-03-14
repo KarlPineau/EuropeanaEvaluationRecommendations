@@ -105,6 +105,7 @@ def computation(entity_computed, level, graph, row, stringify, wrap, algorithms)
                     docs = typological_algorithm(reference_item, stringify, wrap, row)
                     # print('Typological')
 
+                print('comput: '+algorithm)
                 # print(docs)
                 for key, record in enumerate(docs):
                     if key+1 == row:
@@ -120,34 +121,30 @@ def computation(entity_computed, level, graph, row, stringify, wrap, algorithms)
                             # print('re-compute2')
                             computation(entity_computed, level, graph, row+1, stringify, wrap, algorithms)
                         elif record['europeana_id'] in entitiesDefault:
-                            print('re-compute3')
+                            # print('re-compute3')
                             computation(entity_computed, level, graph, row+1, stringify, wrap, algorithms)
                         else:
                             # Log
                             print(algorithm + ': ' + entity_computed + ' > ' + record['europeana_id'])
 
-                            graph.append({'algorithm': algorithm, 'entity1': entity_computed, 'entity2': record['europeana_id']})
+                            graph["relations"].append({"algorithm": algorithm, "entity1": entity_computed, "entity2": record['europeana_id']})
 
-                            # Json writing
-                            file = "data/data.json"
-                            fptr = open(file, "a")
-                            fptr.write("{\"entity1\":\"" + entity_computed + "\", \"entity2\":\"" +
-                                       record['europeana_id'] + "\", \"algorithm\":\"" + algorithm + "\"},")
-                            fptr.close()
+                            with open('data/relations.json', 'w') as outfile:
+                                json.dump(graph, outfile)
 
-                            if level < 8 and count_deep_item(entity_computed, graph, 0) < 8:
+                            # if level < 4 and count_deep_item(entity_computed, graph, 0) < 4:
                                 # If not at the level max, we increment
-                                entity_computed = record['europeana_id']
-                                computation(entity_computed, level+1, graph, 1, stringify, wrap, algorithms)
+                            #    entity_computed = record['europeana_id']
+                            #    computation(entity_computed, level+1, graph, 1, stringify, wrap, algorithms)
 
-algorithms = [
-    'default',
-    'europeanaPublishingFramework',
-    'chronological',
-    'agnostic',
-    'random',
-    'typological'
-]
+#algorithms = [
+#    'default',
+#    'europeanaPublishingFramework',
+#    'chronological',
+#    'agnostic',
+#    'random',
+#    'typological'
+#]
 
 entitiesDefault = [
     '/2032004/2778',
@@ -162,5 +159,9 @@ entitiesDefault = [
     '/08629/0105'
 ]
 
-for entity in entitiesDefault:
-    computation(entity, 0, [], 1, stringify, wrap, algorithms)
+
+#with open('data/relations.json') as json_data:
+#    relations = json.load(json_data)
+
+#for entity in entitiesDefault:
+#     computation(entity, 0, relations, 1, stringify, wrap, algorithms)
