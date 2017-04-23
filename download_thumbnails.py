@@ -13,7 +13,7 @@ with open('data/entities_tree.json') as json_data:
 
 count_thumbnail = 0
 for europeana_id in entities:
-    if 'ee_thumbnail' in entities[europeana_id]:
+    if 'ee_thumbnail_2' in entities[europeana_id]:
         count_thumbnail += 1
 print(str(count_thumbnail)+'/'+str(len(entities)))
 
@@ -21,9 +21,10 @@ print(str(count_thumbnail)+'/'+str(len(entities)))
 def rename_file(file_name, entities, europeana_id):
     file_extension = imghdr.what('./thumbnails/' + file_name)
     if file_extension is not None:
-        os.rename('./thumbnails/' + file_name, './thumbnails/' + str(uuid.uuid4()) + '.' + file_extension)
-        entities[europeana_id]['ee_thumbnail'] = str(uuid.uuid4()) + '.' + file_extension
-        print(str(europeana_id) + ': ' + str(str(uuid.uuid4()) + '.' + file_extension))
+        new_name = uuid.uuid4()
+        os.rename('./thumbnails/' + file_name, './thumbnails/' + str(new_name) + '.' + file_extension)
+        entities[europeana_id]['ee_thumbnail_2'] = str(new_name) + '.' + file_extension
+        print(str(europeana_id) + ': ' + str(str(new_name) + '.' + file_extension))
         with open('data/entities_tree.json', 'w') as outfile:
             json.dump(entities, outfile)
         return True
@@ -31,7 +32,7 @@ def rename_file(file_name, entities, europeana_id):
         return False
 
 for europeana_id in entities:
-    if 'ee_thumbnail' not in entities[europeana_id]:
+    if 'ee_thumbnail_2' not in entities[europeana_id]:
         url = None
         listThumbnailProperties = ['edmObject', 'edmPreview', 'edmIsShownBy', 'none']
         isDownload = False
@@ -53,6 +54,8 @@ for europeana_id in entities:
                     print("There was an error for directory...")
                 except ConnectionResetError:
                     print("Connection reset by peer ...")
+                except TimeoutError:
+                    print("TimeoutError ...")
             elif propertyThumbnail in entities[europeana_id] and entities[europeana_id][propertyThumbnail] is not None:
                 url = stringify(entities[europeana_id][propertyThumbnail], ' OR ', False, wrap)
                 try:
@@ -71,6 +74,8 @@ for europeana_id in entities:
                     print("There was an error for directory...")
                 except ConnectionResetError:
                     print("Connection reset by peer ...")
+                except TimeoutError:
+                    print("TimeoutError ...")
 
             if isDownload is True:
                 break

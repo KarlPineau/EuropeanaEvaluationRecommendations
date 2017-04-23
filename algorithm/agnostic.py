@@ -4,7 +4,7 @@ import urllib.parse
 
 
 def agnostic_algorithm(object, stringify, wrap, row):
-    #print(object)
+    # print(object)
     q = ''
 
     if "proxy_dcterms_medium" in object:
