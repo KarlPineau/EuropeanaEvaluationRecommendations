@@ -2,16 +2,15 @@ import json
 import urllib.parse
 import urllib.request
 
+from algorithm.agnostic import agnostic_algorithm
+from algorithm.chronological import chronological_algorithm
 from algorithm.default import default_algorithm
 from algorithm.europeanaPublishingFramework import europeana_publishing_framework_algorithm
-from algorithm.chronological import chronological_algorithm
-from algorithm.agnostic import agnostic_algorithm
 from algorithm.random import random_algorithm
 from algorithm.typological import typological_algorithm
-from findInGraph import get_list_item
-from findInGraph import pair_exist
-from findInGraph import check_entity_algorithm
-from findInGraph import count_deep_item
+from item.find_in_graph import check_entity_algorithm
+from item.find_in_graph import get_list_item
+from item.find_in_graph import pair_exist
 
 
 def wrap(totest):
@@ -65,7 +64,7 @@ def stringify(totest, delimiter, wrapBool, wrap):
 
 def get_reference_item(entity_computed):
     response = urllib.request.urlopen(
-        'http://sol1.eanadev.org:9191/solr/search_1_shard1_replica2/select?q=europeana_id:"' + entity_computed + '"&rows=1&wt=json')
+        'http://sol13.eanadev.org:9191/solr/search_2/select?q=europeana_id:"' + entity_computed + '"&rows=1&wt=json')
     result = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
     # print(result)
 

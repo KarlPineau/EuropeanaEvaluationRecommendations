@@ -5,7 +5,7 @@ import urllib.request
 
 def get_reference_item(entity_computed):
     response = urllib.request.urlopen(
-        'http://sol1.eanadev.org:9191/solr/search_1_shard1_replica2/select?q=europeana_id:"' + entity_computed + '"&rows=1&wt=json')
+        'http://sol13.eanadev.org:9191/solr/search_2/select?q=europeana_id:"' + entity_computed + '"&rows=1&wt=json')
     result = json.loads(response.read().decode(response.info().get_param('charset') or 'utf-8'))
     # print(result)
 

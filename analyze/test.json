@@ -1,4 +1,4 @@
-{
+[{
   "user-id":50,
   "user-context":"facebook_messenger",
   "user-facebook-id":"1350827468324232",
@@ -25,9 +25,32 @@
     {"item-id":430,"item-item":"\/92068\/URN_NBN_SI_img_WUIL4ATF_","item-click":true,"item-algorithm":"random","item-order":4,"item-create-date":{"date":"2017-03-28 23:41:11.000000","timezone_type":3,"timezone":"Europe\/Berlin"}},
     {"item-id":431,"item-item":"\/2048204\/RMAH_153455_NL","item-click":true,"item-algorithm":"typological","item-order":5,"item-create-date":{"date":"2017-03-28 23:41:11.000000","timezone_type":3,"timezone":"Europe\/Berlin"}}
   ],
-  "browse-create-date":{"date":"2017-03-28 23:41:11.000000","timezone_type":3,"timezone":"Europe\/Berlin"}}
+  "browse-create-date":{"date":"2017-03-28 23:41:11.000000","timezone_type":3,"timezone":"Europe\/Berlin"}},
 
 
+{
+  "user-id":50,
+  "user-context":"facebook_messenger",
+  "user-facebook-id":"1350827468324232",
+  "user-facebook-locale":"fr_FR",
+  "user-facebook-ref":"",
+  "user-facebook-timezone":"1",
+  "user-create-date":{"date":"2017-03-24 23:54:08.000000","timezone_type":3,"timezone":"Europe\/Berlin"},
+  "session-id":182,"session-type":"singleEvaluation",
+  "session-is-contextualized":false,
+  "session-is-end-session":true,
+  "session-reference-item":null,
+  "session-create-date":{"date":"2017-03-28 23:50:01.000000","timezone_type":3,"timezone":"Europe\/Berlin"},
+  "session-end-date":{"date":"2017-03-28 23:59:56.000000","timezone_type":3,"timezone":"Europe\/Berlin"},
+  "single-id":9,
+  "single-reference-item":"\/9200173\/10107_1294440",
+  "single-reference-item-click":true,
+  "single-suggested-item":"\/9200173\/10107_1294976",
+  "single-suggested-item-click":true,
+  "single-algorithm":"default",
+  "single-rate-value":3,
+  "single-create-date":{"date":"2017-03-28 23:50:02.000000","timezone_type":3,"timezone":"Europe\/Berlin"}}
+]
 [
   ['europeanaPublishingFramework', 'default'],
   ['NotInteresting'],
